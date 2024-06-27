@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Profile {
@@ -15,7 +14,7 @@ model Profile {
   imageUrl  String    @db.Text
   email     String    @db.Text
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   servers   Server[]
   members   Member[]
   channels  Channel[]
@@ -29,7 +28,7 @@ model Server {
   profileId  String
   profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
   createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  updatedAt  DateTime  @default(now()) @updatedAt
   members    Member[]
   channels   Channel[]
 
@@ -50,7 +49,7 @@ model Member {
   serverId  String
   server    Server     @relation(fields: [serverId], references: [id], onDelete: Cascade)
   createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  updatedAt DateTime   @default(now()) @updatedAt
 
   @@index([profileId])
   @@index([serverId])
@@ -71,7 +70,7 @@ model Channel {
   serverId  String
   server    Server      @relation(fields: [serverId], references: [id], onDelete: Cascade)
   createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  updatedAt DateTime    @default(now()) @updatedAt
 
   @@index([profileId])
   @@index([serverId])
