@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
+import { ModelProvider } from "@/components/providers/model-provider";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             enableSystem
             storageKey="discord-theme"
           >
+            <ModelProvider />
             {children}
           </ThemeProvider>
         </body>
