@@ -1,22 +1,22 @@
 "use client";
- 
+import React from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
+  DialogFooter,
 } from "../ui/dialog";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
+  FormControl,
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
@@ -34,12 +34,12 @@ const formSchema = z.object({
     message: "Server image is required",
   }),
 });
-function CreateServerModel() {
-    const router = useRouter();
-    const {isOpen, onClose ,type} = useModel()
-    
 
-    const isModelOpen = isOpen && type === 'createServer' 
+function CreateServerModel() {
+  const router = useRouter();
+  const { isOpen, onClose, type } = useModel();
+
+  const isModelOpen = isOpen && type === "createServer";
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,16 +53,16 @@ function CreateServerModel() {
       await axios.post("/api/servers", values);
       form.reset();
       router.refresh();
-     } catch (error) {
+    } catch (error) {
       console.log(error);
     }
-    };
-    
-    const handleClose = () => {
-        form.reset(); 
-        onClose()
-    }
- 
+  };
+
+  const handleClose = () => {
+    form.reset();
+    onClose();
+  };
+
   return (
     <Dialog open={isModelOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
@@ -72,7 +72,7 @@ function CreateServerModel() {
           </DialogTitle>
           <DialogDescription className="text-ellipsis text-zinc-500">
             Give Your server a personality with a name and an image.You can
-            always always change it later.
+            always change it later.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -107,7 +107,7 @@ function CreateServerModel() {
                       <Input
                         disabled={isLoading}
                         className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter server name "
+                        placeholder="Enter server name"
                         {...field}
                       />
                     </FormControl>

@@ -3,11 +3,9 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import ModelProvider from "@/components/providers/model-provider";
+
 import { cn } from "@/lib/utils";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-import { extractRouterConfig } from "uploadthing/server";
-import { ourFileRouter } from "./api/uploadthing/core";
-import { ModelProvider } from "@/components/providers/model-provider";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -25,7 +23,6 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(openSans.className, "bg-white dark:bg-[#313338]")}>
-          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
