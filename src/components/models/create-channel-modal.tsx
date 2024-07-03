@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -49,16 +49,24 @@ const formSchema = z.object({
 function CreateChannelModal() {
   const router = useRouter();
   const params = useParams();
-  const { isOpen, onClose, type } = useModel();
-
+  const { isOpen, onClose, type, data } = useModel();
+  const { channelType } = data;
   const isModelOpen = isOpen && type === "createChannel";
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
   });
+
+  useEffect(() => {
+    if (channelType) {
+      form.setValue("type", channelType);
+    } else {
+      form.setValue("type", ChannelType.TEXT);
+    }
+  }, [channelType, form]);
   const isLoading = form.formState.isSubmitting;
   const onSumbit = async (values: z.infer<typeof formSchema>) => {
     try {
