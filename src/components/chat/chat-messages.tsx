@@ -1,5 +1,4 @@
 "use client";
-
 import { Member, Message, Profile } from "@prisma/client";
 import ChatWelcome from "./chat-welcome";
 import { UseChatQuery } from "../../../hooks/use-chat-query";
@@ -18,6 +17,7 @@ interface ChatMessagesProps {
   type: "channel" | "conversation";
 }
 import { format } from "date-fns";
+import { useChatSocket } from "../../../hooks/use-chat-socket";
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
@@ -37,6 +37,8 @@ export const ChatMessages = ({
 }: ChatMessagesProps) => {
   const DATE_FORMAT = "d MM yyyy, HH:mm";
   const queryKey = `chat:${chatId}`;
+  const addKey = `chat:${chatId}:messages`;
+  const updateKey = `chat:${chatId}:messages:update`;
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     UseChatQuery({
       queryKey,
@@ -44,6 +46,7 @@ export const ChatMessages = ({
       paramKey,
       paramValue,
     });
+  useChatSocket({ queryKey, addKey, updateKey });
   if (status === "error") {
     return (
       <div className="flex flex-col flex-1 justify-center items-center">
