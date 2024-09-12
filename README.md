@@ -21,11 +21,7 @@ This project is still under development and is not yet ready for use.
 - [📊 Project Stats](#project-stats)
 
 
-## 🌟 Key Features
 
-- **Feature 1:** 
-- **Feature 2:** 
-- **Feature 3:**
 
 ## 🚀 Getting Started
 
@@ -54,19 +50,7 @@ This project is still under development and is not yet ready for use.
 npm run dev
 ```
 
-## 📘 Usage
 
-**Example 1:**
-
-```javascript
-// Example code snippet
-```
-
-**Example 2:**
-
-```javascript
-// Another code snippet
-```
 
 ## 🏗️ Project Structure
 
